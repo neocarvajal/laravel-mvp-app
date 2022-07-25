@@ -76,26 +76,23 @@
                                     </td>
                                     <td>{{$purchase->total}}</td>
 
-                                    {{-- @if ($purchase->status == 'VALID')
+                                    @if ($purchase->status == 'VALID')
                                     <td>
-                                        <a class="jsgrid-button btn btn-success" href="{{route('change.status.purchases', $purchase)}}" title="Editar">
+                                        <a class="jsgrid-button btn btn-success" href="#" title="Editar">
                                             Activo <i class="fas fa-check"></i>
                                         </a>
                                     </td>
                                     @else
                                     <td>
-                                        <a class="jsgrid-button btn btn-danger" href="{{route('change.status.purchases', $purchase)}}" title="Editar">
+                                        <a class="jsgrid-button btn btn-danger" href="#" title="Editar">
                                             Cancelado <i class="fas fa-times"></i>
                                         </a>
                                     </td>
-                                    @endif --}}
+                                    @endif
                                     <td style="width: 50px;">
-
-                                        {{-- <a href="{{route('purchases.pdf', $purchase)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a> --}}
-                                        {{--  <a href="#" class="jsgrid-button jsgrid-edit-button"><i class="fas fa-print"></i></a>  --}}
-                                        <a href="{{route('purchases.show', $purchase)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
-                                   
-                                      
+                                        <a href="#" class="jsgrid-button jsgrid-edit-button" title=""><i class="far fa-file-pdf"></i></a>
+                                        <a href="#" class="jsgrid-button jsgrid-edit-button" title="imprimir"><i class="fas fa-print"></i></a> 
+                                        <a href="{{route('purchases.show', $purchase)}}" class="jsgrid-button jsgrid-edit-button" title="mostrar"><i class="far fa-eye"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -103,9 +100,6 @@
                         </table>
                     </div>
                 </div>
-                {{--  <div class="card-footer text-muted">
-                    {{$purchases->render()}}
-                </div>  --}}
             </div>
         </div>
     </div>

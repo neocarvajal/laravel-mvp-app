@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('title','Registro de compra')
 @section('styles')
-{!! Html::style('select/dist/css/bootstrap-select.min.css') !!}
+{{-- {!! Html::style('select/dist/css/bootstrap-select.min.css') !!} --}}
 @endsection
 @section('options')
 @endsection
@@ -51,8 +51,8 @@
 {!! Html::script('melody/js/alerts.js') !!}
 {!! Html::script('melody/js/avgrund.js') !!}
 
-{!! Html::script('select/dist/js/bootstrap-select.min.js') !!}
-{!! Html::script('js/sweetalert2.all.min.js') !!}
+{{-- {!! Html::script('select/dist/js/bootstrap-select.min.js') !!} --}}
+{{-- {!! Html::script('js/sweetalert2.all.min.js') !!} --}}
 <script>
     $(document).ready(function () {
         $("#agregar").click(function () {
@@ -84,7 +84,7 @@
             evaluar();
             $('#detalles').append(fila);
         } else {
-            Swal.fire({
+            swal({
                 type: 'error',
                 text: 'Rellene todos los campos del detalle de la compras',
             })

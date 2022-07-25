@@ -21,9 +21,11 @@ class ClientController extends Controller
     public function store(StoreRequest $request)
     {
         Client::create($request->all());
+
         if ($request->sale == 1) {
             return redirect()->back();
         }
+        
         return redirect()->route('clients.index');
     }
     public function show(Client $client)

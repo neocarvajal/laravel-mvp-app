@@ -19,9 +19,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::group(['middleware' => ['auth']], function() {
-    /**
-    * Logout Route
-    */
+    
     Route::get('/logout', 'HomeController@logout')->name('logout');
  });
 

@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-@section('title','Productos de categoría')
+@section('title','Detalles de venta')
 @section('styles')
 <style type="text/css">
     .unstyled-button {
@@ -22,13 +22,13 @@
 <div class="content-wrapper">
     <div class="page-header">
         <h3 class="page-title">
-            Productos que pertenecen a {{$category->name}}
+            Detalles de venta
         </h3>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{route('home')}}">Panel administrador</a></li>
-                <li class="breadcrumb-item"><a href="{{route('categories.index')}}">Categorías</a></li>
-                <li class="breadcrumb-item active" aria-current="page">{{$category->name}}</li>
+                <li class="breadcrumb-item"><a href="{{route('sales.index')}}">Ventas</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detalles de venta</li>
             </ol>
         </nav>
     </div>
@@ -36,88 +36,79 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    
-
-                    <div class="d-flex justify-content-between">
-                        <h4 class="card-title">Productos de la categoría {{$category->name}}</h4>
-                        {{--  <i class="fas fa-ellipsis-v"></i>  --}}
-                        <div class="btn-group">
-                            <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                              <a href="{{route('products.create')}}" class="dropdown-item">Agregar</a>
-                              <a class="dropdown-item" href="{{route('print_barcode')}}">Exportar códigos de barras</a> 
-                              {{--  <button class="dropdown-item" type="button">Another action</button>
-                              <button class="dropdown-item" type="button">Something else here</button>  --}}
-                            </div>
-                          </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 text-center">
+                            <label class="form-control-label">Cliente</label>
+                            <p><a href="{{route('clients.show')}}">{{$sale->client}}</a></p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <label class="form-control-label">Vendedor</label>
+                            <p>{{$sale->user->name}}</p>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <label class="form-control-label">Número Venta</label>
+                            <p>{{$sale->id}}</p>
+                        </div>
                     </div>
-
-                    <div class="table-responsive">
-                        <table id="order-listing" class="table">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Nombre</th>
-                                    <th>Stock</th>
-                                    <th>Estado</th>
-                                    <th>Categoría</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($category->products as $product)
-                                <tr>
-                                    <th scope="row">{{$product->id}}</th>
-                                    <td>
-                                        <a href="{{route('products.show',$product)}}">{{$product->name}}</a>
-                                    </td>
-                                    <td>{{$product->stock}}</td>
-                                    @if ($product->status == 'ACTIVE')
-                                    <td>
-                                        <a class="jsgrid-button btn btn-success" href="{{route('change.status.products', $product)}}" title="Editar">
-                                            Activo <i class="fas fa-check"></i>
-                                        </a>
-                                    </td>
-                                    @else
-                                    <td>
-                                        <a class="jsgrid-button btn btn-danger" href="{{route('change.status.products', $product)}}" title="Editar">
-                                            Desactivado <i class="fas fa-times"></i>
-                                        </a>
-                                    </td>
-                                    @endif
-                                    
-
-                                    <td>{{$product->category->name}}</td>
-                                    <td style="width: 50px;">
-                                        {!! Form::open(['route'=>['products.destroy',$product], 'method'=>'DELETE']) !!}
-
-                                        <a class="jsgrid-button jsgrid-edit-button" href="{{route('products.edit', $product)}}" title="Editar">
-                                            <i class="far fa-edit"></i>
-                                        </a>
-                                        
-                                        <button class="jsgrid-button jsgrid-delete-button unstyled-button" type="submit" title="Eliminar">
-                                            <i class="far fa-trash-alt"></i>
-                                        </button>
-
-                                        {!! Form::close() !!}
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                    <br/><br/>
+                    <div class="form-group">
+                        <h4 class="card-title">Detalles de venta</h4>
+                        <div class="table-responsive col-md-12">
+                            <table id="saleDetails" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Precio Venta(USD)</th>
+                                        <th>Descuento(USD)</th>
+                                        <th>Cantidad</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="3">
+                                            <p align="right">SUBTOTAL:</p>
+                                        </th>
+                                        <th>
+                                            <p align="right">s/{{number_format($subtotal,2)}}</p>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3">
+                                            <p align="right">TOTAL IMPUESTO ({{$sale->tax}}%):</p>
+                                        </th>
+                                        <th>
+                                            <p align="right">s/{{number_format($subtotal*$sale->tax/100,2)}}</p>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="3">
+                                            <p align="right">TOTAL:</p>
+                                        </th>
+                                        <th>
+                                            <p align="right">s/{{number_format($sale->total,2)}}</p>
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                                <tbody>
+                                    @foreach($saleDetails as $saleDetail)
+                                    <tr>
+                                        <td>{{$saleDetail->product->name }}</td>
+                                        <td>s/{{$saleDetail->price}}</td>
+                                        <td>{{$saleDetail->quantity}}</td>
+                                        <td>s/{{number_format($saleDetail->quantity*$saleDetail->price,2)}}</td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-
-
                 </div>
                 <div class="card-footer text-muted">
-                    <a href="{{route('categories.index')}}" class="btn btn-primary float-right">Regresar</a>
+                    <a href="{{route('sales.index')}}" class="btn btn-primary float-right">Regresar</a>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 @endsection
 @section('scripts')

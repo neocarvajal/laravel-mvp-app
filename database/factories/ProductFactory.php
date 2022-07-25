@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Storage;
 use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Provider;
@@ -19,10 +20,11 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+       
         return [
             'code' => fake()->unique()->randomNumber(8, true),
             'name' => fake()->name(),
-            'image' => $this->faker->image(public_path('/image'),640,480, null, false),
+            'image' => 'nombre-'.fake()->randomNumber(8, true),
             'sell_price' => fake()->randomNumber(3, true),
             'category_id' => Category::all()->random()->id,
             'provider_id' => Provider::all()->random()->id,

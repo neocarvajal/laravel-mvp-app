@@ -11,10 +11,8 @@ use App\Http\Requests\Purchase\UpdateRequest;
 use App\Models\PurchaseDetails;
 use Carbon\Carbon;
 use Auth;
-// use Illuminate\Support\Facades\Auth;
 
 // use Barryvdh\DomPDF\Facade as PDF;
-
 
 class PurchaseController extends Controller
 {

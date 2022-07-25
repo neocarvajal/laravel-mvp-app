@@ -26,9 +26,8 @@ class ProductController extends Controller
     public function store(StoreRequest $request)
     {
         if($request->hasFile('picture')){
-            $file = $request->file('picture');
-            $image_name = time().'_'.$file->getClientOriginalName();
-            $file->move(public_path("/image"),$image_name);
+            $path = $request->file('picture')->store('public');
+            $image_name = explode('/',$path)[1];
         }
         $product = Product::create($request->all()+[
             'image' => $image_name,
@@ -53,9 +52,8 @@ class ProductController extends Controller
     public function update(UpdateRequest $request, Product $product)
     {
         if($request->hasFile('picture')){
-            $file = $request->file('picture');
-            $image_name = time().'_'.$file->getClientOriginalName();
-            $file->move(public_path("/image"),$image_name);
+            $path = $request->file('picture')->store('public');
+            $image_name = explode('/',$path)[1];
 
             $product->update($request->all()+[
                 'image'=>$image_name,
@@ -74,7 +72,7 @@ class ProductController extends Controller
             $image_name = $product->image;
             
             $product->update($request->all()+[
-                'image'=>$image_name,
+                'image '=> $image_name,
             ]);
 
             if ($request->code == "") {

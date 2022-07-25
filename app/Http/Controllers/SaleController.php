@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Sale\StoreRequest;
 use App\Http\Requests\Sale\UpdateRequest;
 use Carbon\Carbon;
+use Auth;
 
 class SaleController extends Controller
 {
@@ -28,7 +29,7 @@ class SaleController extends Controller
     {
         $sale = Sale::create($request->all()+[
             'user_id'=>Auth::user()->id,
-            'sale_date'=>Carbon::now('America/Lima'),
+            'sale_date'=>Carbon::now('America/Caracas'),
         ]);
         foreach ($request->product_id as $key => $product) {
             $results[] = array("product_id"=>$request->product_id[$key], "quantity"=>$request->quantity[$key], "price"=>$request->price[$key], "discount"=>$request->discount[$key]);
@@ -38,10 +39,10 @@ class SaleController extends Controller
     }
     public function show(Sale $sale)
     {
-        $subtotal = 0 ;
+        $subtotal = 0;
         $saleDetails = $sale->saleDetails;
         foreach ($saleDetails as $saleDetail) {
-            $subtotal += $saleDetail->quantity*$saleDetail->price-$saleDetail->quantity* $saleDetail->price*$saleDetail->discount/100;
+            $subtotal += $saleDetail->quantity * $saleDetail->price - $saleDetail->quantity * $saleDetail->price * $saleDetail->discount/100;
         }
         return view('admin.sale.show', compact('sale', 'saleDetails', 'subtotal'));
     }

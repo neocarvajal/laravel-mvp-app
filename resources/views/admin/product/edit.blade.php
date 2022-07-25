@@ -75,7 +75,7 @@
 
                     <div class="card-body">
                         <h4 class="card-title d-flex">Imagen de producto</h4>
-                        <input type="file"  name="picture" id="picture" class="dropify" data-default-file="{{asset('image/' . $product->image)}}"/>
+                        <input type="file"  name="picture" id="picture" class="dropify" data-default-file="{{asset('storage/'.$product->image)}}"/>
                     </div>
 
                      <button type="submit" class="btn btn-primary mr-2">Editar</button>

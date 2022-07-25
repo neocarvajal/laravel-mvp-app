@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SaleDetailss;
+use App\Models\SaleDetails;
 use Illuminate\Http\Request;
 
-class SaleDetailssController extends Controller
+class SaleDetailsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,7 +41,7 @@ class SaleDetailssController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\SaleDetailss  $SaleDetails
+     * @param  \App\SaleDetails  $SaleDetails
      * @return \Illuminate\Http\Response
      */
     public function show(SaleDetails $SaleDetails)

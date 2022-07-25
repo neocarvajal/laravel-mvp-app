@@ -77,26 +77,23 @@
                                     <td>{{$sale->total}}</td>
 
                                     @if ($sale->status == 'VALID')
-                                    <td>
-                                        <a class="jsgrid-button btn btn-success" href="{{route('change.status.sales', $sale)}}" title="Editar">
-                                            Activo <i class="fas fa-check"></i>
-                                        </a>
-                                    </td>
+                                        <td>
+                                            <a class="jsgrid-button btn btn-success" href="{{route('change.status.sales', $sale)}}" title="Editar">
+                                                Activo <i class="fas fa-check"></i>
+                                            </a>
+                                        </td>
                                     @else
-                                    <td>
-                                        <a class="jsgrid-button btn btn-danger" href="{{route('change.status.sales', $sale)}}" title="Editar">
-                                            Cancelado <i class="fas fa-times"></i>
-                                        </a>
-                                    </td>
+                                        <td>
+                                            <a class="jsgrid-button btn btn-danger" href="{{route('change.status.sales', $sale)}}" title="Editar">
+                                                Cancelado <i class="fas fa-times"></i>
+                                            </a>
+                                        </td>
                                     @endif
 
                                     <td style="width: 50px;">
-
                                         <a href="{{route('sales.pdf', $sale)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-file-pdf"></i></a>
                                         <a href="{{route('sales.print', $sale)}}" class="jsgrid-button jsgrid-edit-button"><i class="fas fa-print"></i></a>
                                         <a href="{{route('sales.show', $sale)}}" class="jsgrid-button jsgrid-edit-button"><i class="far fa-eye"></i></a>
-                                   
-                                      
                                     </td>
                                 </tr>
                                 @endforeach
@@ -104,9 +101,6 @@
                         </table>
                     </div>
                 </div>
-                {{--  <div class="card-footer text-muted">
-                    {{$sales->render()}}
-                </div>  --}}
             </div>
         </div>
     </div>

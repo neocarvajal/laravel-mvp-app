@@ -1,14 +1,13 @@
 @extends('layouts.admin')
 @section('title','Registro de venta')
 @section('styles')
-{!! Html::style('select/dist/css/bootstrap-select.min.css') !!}
+{{-- {!! Html::style('select/dist/css/bootstrap-select.min.css') !!} --}}
 <style type="text/css">
     .unstyled-button {
         border: none;
         padding: 0;
         background: none;
     }
-
 </style>
 @endsection
 @section('create')
@@ -48,7 +47,6 @@
                     
                     @include('admin.sale._form')
                      
-                     
                 </div>
                 <div class="card-footer text-muted">
                     <button type="submit" id="guardar" class="btn btn-primary float-right">Registrar</button>
@@ -62,7 +60,6 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="exampleModal-2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -73,32 +70,23 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
-
             {!! Form::open(['route'=>'clients.store', 'method'=>'POST','files' => true]) !!}
-
-
-            <div class="modal-body">
-
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" required>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="dni">DNI</label>
+                        <input type="number" class="form-control" name="dni" id="dni" aria-describedby="helpId" required>
+                    </div>
+                    <input type="hidden" name="sale" value="1">
                 </div>
-                <div class="form-group">
-                    <label for="dni">DNI</label>
-                    <input type="number" class="form-control" name="dni" id="dni" aria-describedby="helpId" required>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">Registrar</button>
+                    <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
                 </div>
-
-                <input type="hidden" name="sale" value="1">
-
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-success">Registrar</button>
-                <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-            </div>
-
-        {!! Form::close() !!}
-
+            {!! Form::close() !!}
         </div>
     </div>
 </div>
@@ -108,9 +96,8 @@
 @section('scripts')
 {!! Html::script('melody/js/alerts.js') !!}
 {!! Html::script('melody/js/avgrund.js') !!}
-
-{!! Html::script('select/dist/js/bootstrap-select.min.js') !!}
-{!! Html::script('js/sweetalert2.all.min.js') !!}
+{{-- {!! Html::script('select/dist/js/bootstrap-select.min.js') !!}
+{!! Html::script('js/sweetalert2.all.min.js') !!} --}}
 
 <script>
 
@@ -118,7 +105,7 @@
 	
     product_id1.change(function(){
             $.ajax({
-                url: "{{route('get_products_by_id')}}",
+                url: "",
                 method: 'GET',
                 data:{
                     product_id: product_id1.val(),
@@ -131,11 +118,11 @@
         });
     });
     
-    
     $(obtener_registro());
+
     function obtener_registro(code){
         $.ajax({
-            url: "{{route('get_products_by_barcode')}}",
+            url: "",
             type: 'GET',
             data:{
                 code: code
@@ -149,6 +136,7 @@
             }
         });
     }
+
     $(document).on('keyup', '#code', function(){
         var valorResultado = $(this).val();
         if(valorResultado!=""){
@@ -156,8 +144,7 @@
         }else{
             obtener_registro();
         }
-    })
-
+    });
 
     $(document).ready(function () {
         $("#agregar").click(function () {
@@ -168,11 +155,11 @@
     var cont = 1;
     total = 0;
     subtotal = [];
+
     $("#guardar").hide();
 
     function agregar() {
     
-
         product_id = $("#product_id1").val();
         producto = $("#product_id1 option:selected").text();
         quantity = $("#quantity").val();
@@ -180,6 +167,7 @@
         price = $("#price").val();
         stock = $("#stock").val();
         impuesto = $("#tax").val();
+
         if (product_id != "" && quantity != "" && quantity > 0 && discount != "" && price != "") {
             if (parseInt(stock) >= parseInt(quantity)) {
                 subtotal[cont] = (quantity * price) - (quantity * price * discount / 100);
@@ -191,31 +179,33 @@
                 evaluar();
                 $('#detalles').append(fila);
             } else {
-                Swal.fire({
-                    type: 'error',
+                swal({
+                    icon: 'error',
                     text: 'La cantidad a vender supera el stock.',
-                })
+                });
             }
         } else {
-            Swal.fire({
-                type: 'error',
+            swal({
+                icon: 'error',
                 text: 'Rellene todos los campos del detalle de la venta.',
-            })
+            });
         }
     }
+
     function limpiar() {
         $("#quantity").val("");
         $("#discount").val("0");
     }
-    function totales() {
-        $("#total").html("PEN " + total.toFixed(2));
 
+    function totales() {
+        $("#total").html("USD " + total.toFixed(2));
         total_impuesto = total * impuesto / 100;
         total_pagar = total + total_impuesto;
-        $("#total_impuesto").html("PEN " + total_impuesto.toFixed(2));
-        $("#total_pagar_html").html("PEN " + total_pagar.toFixed(2));
+        $("#total_impuesto").html("USD " + total_impuesto.toFixed(2));
+        $("#total_pagar_html").html("USD " + total_pagar.toFixed(2));
         $("#total_pagar").val(total_pagar.toFixed(2));
     }
+
     function evaluar() {
         if (total > 0) {
             $("#guardar").show();
@@ -223,13 +213,14 @@
             $("#guardar").hide();
         }
     }
+
     function eliminar(index) {
         total = total - subtotal[index];
         total_impuesto = total * impuesto / 100;
         total_pagar_html = total + total_impuesto;
-        $("#total").html("PEN" + total);
-        $("#total_impuesto").html("PEN" + total_impuesto);
-        $("#total_pagar_html").html("PEN" + total_pagar_html);
+        $("#total").html("USD" + total);
+        $("#total_impuesto").html("USD" + total_impuesto);
+        $("#total_pagar_html").html("USD" + total_pagar_html);
         $("#total_pagar").val(total_pagar_html.toFixed(2));
         $("#fila" + index).remove();
         evaluar();

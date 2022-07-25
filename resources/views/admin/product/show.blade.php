@@ -33,26 +33,12 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="border-bottom text-center pb-4">
-
-                                <img src="{{asset('image/'.$product->image)}}" alt="profile" class="img-lg  mb-3" />
-                                {{--  <p>Nombre de proveedor. </p>  --}}
-
+                                <img src="{{asset('storage/'.$product->image)}}" alt="profile" class="img-lg  mb-3" />
 
                                 <h3>{{$product->name}}</h3>
                                 <div class="d-flex justify-content-between">
                                 </div>
                             </div>
-                            {{--  <div class="border-bottom py-4">
-                                <div class="list-group">
-                                    <button type="button" class="list-group-item list-group-item-action active">
-                                        Sobre producto
-                                    </button>
-                                    <button type="button"
-                                        class="list-group-item list-group-item-action">Productos</button>
-                                    <button type="button" class="list-group-item list-group-item-action">Registrar
-                                        producto</button>
-                                </div>
-                            </div>  --}}
 
                             <div class="py-4">
                                 <p class="clearfix">

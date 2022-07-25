@@ -30,7 +30,6 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                   
                     <div class="form-group row">
                         <div class="col-md-4 text-center">
                             <label class="form-control-label" for="nombre"><strong>Proveedor</strong></label>
@@ -45,7 +44,7 @@
                             <p>{{$purchase->user->name}}</p>
                         </div>
                     </div>
-                    <br /><br />
+                    <br/><br/>
                     <div class="form-group row ">
                         <h4 class="card-title ml-3">Detalles de compra</h4>
                         <div class="table-responsive col-md-12">
@@ -53,9 +52,9 @@
                                 <thead>
                                     <tr>
                                         <th>Producto</th>
-                                        <th>Precio (PEN)</th>
+                                        <th>Precio (USD)</th>
                                         <th>Cantidad</th>
-                                        <th>SubTotal (PEN)</th>
+                                        <th>SubTotal (USD)</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -83,7 +82,6 @@
                                             <p align="right">s/{{number_format($purchase->total,2)}}</p>
                                         </th>
                                     </tr>
-                    
                                 </tfoot>
                                 <tbody>
                                     @foreach($purchaseDetails as $purchaseDetail)
@@ -98,9 +96,6 @@
                             </table>
                         </div>
                     </div>
-                    
-
-
                 </div>
                 <div class="card-footer text-muted">
                     <a href="{{route('purchases.index')}}" class="btn btn-primary float-right">Regresar</a>
@@ -108,7 +103,6 @@
             </div>
         </div>
     </div>
-
 </div>
 @endsection
 @section('scripts')
