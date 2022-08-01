@@ -65,7 +65,7 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                        <th colspan="3">
+                                        <th colspan="4">
                                             <p align="right">SUBTOTAL:</p>
                                         </th>
                                         <th>
@@ -73,7 +73,7 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="3">
+                                        <th colspan="4">
                                             <p align="right">TOTAL IMPUESTO ({{$sale->tax}}%):</p>
                                         </th>
                                         <th>
@@ -81,7 +81,7 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="3">
+                                        <th colspan="4">
                                             <p align="right">TOTAL:</p>
                                         </th>
                                         <th>

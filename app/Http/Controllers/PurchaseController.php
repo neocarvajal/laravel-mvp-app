@@ -11,8 +11,8 @@ use App\Http\Requests\Purchase\UpdateRequest;
 use App\Models\PurchaseDetails;
 use Carbon\Carbon;
 use Auth;
+use Barryvdh\DomPDF\Facade\PDF;
 
-// use Barryvdh\DomPDF\Facade as PDF;
 
 class PurchaseController extends Controller
 {
@@ -53,10 +53,16 @@ class PurchaseController extends Controller
         }
         return view('admin.purchase.show', compact('purchase', 'purchaseDetails', 'subtotal'));
     }
-    public function edit(Purchase $purchase)
+    public function pdf(Purchase $purchase)
     {
-        // $providers = Provider::get();
-        // return view('admin.purchase.edit', compact('purchase'));
+        $subtotal = 0 ;
+        $purchaseDetails = $purchase->purchaseDetails;
+        foreach ($purchaseDetails as $purchaseDetail) {
+            $subtotal += $purchaseDetail->quantity * $purchaseDetail->price;
+        }
+        $pdf = PDF::loadView('admin.purchase.pdf', compact('purchase', 'purchaseDetails', 'subtotal'));
+        
+        return $pdf->download('Reporte_de_compra'.$purchase->id.'.pdf');
     }
     public function update(UpdateRequest $request, Purchase $purchase)
     {

@@ -30,4 +30,6 @@ Route::resource('providers', 'ProviderController')->names('providers');
 Route::resource('purchases', 'PurchaseController')->names('purchases');
 Route::resource('sales', 'SaleController')->names('sales');
 
+Route::get('purchases/pdf/{purchase}', 'PurchaseController@pdf')->name('purchases.pdf');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
