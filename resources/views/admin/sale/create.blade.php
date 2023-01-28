@@ -13,7 +13,7 @@
 @section('create')
 <li class="nav-item d-none d-lg-flex">
     <a class="nav-link" type="button" data-toggle="modal" data-target="#exampleModal-2">
-      <span class="btn btn-warning">+ Registrar cliente</span>
+      <span class="btn btn-warning">+ Registrar Venta</span>
     </a>
 </li>
 @endsection
@@ -40,13 +40,13 @@
             <div class="card">
                 {!! Form::open(['route'=>'sales.store', 'method'=>'POST']) !!}
                 <div class="card-body">
-                    
+
                     <div class="d-flex justify-content-between">
                         <h4 class="card-title">Registro de venta</h4>
                     </div>
-                    
+
                     @include('admin.sale._form')
-                     
+
                 </div>
                 <div class="card-footer text-muted">
                     <button type="submit" id="guardar" class="btn btn-primary float-right">Registrar</button>
@@ -102,7 +102,7 @@
 <script>
 
     var product_id1 = $('#product_id1');
-	
+
     product_id1.change(function(){
             $.ajax({
                 url: "",
@@ -117,7 +117,7 @@
             }
         });
     });
-    
+
     $(obtener_registro());
 
     function obtener_registro(code){
@@ -159,7 +159,7 @@
     $("#guardar").hide();
 
     function agregar() {
-    
+
         product_id = $("#product_id1").val();
         producto = $("#product_id1 option:selected").text();
         quantity = $("#quantity").val();

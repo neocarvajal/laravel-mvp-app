@@ -10,6 +10,12 @@ use App\Http\Requests\Sale\StoreRequest;
 use App\Http\Requests\Sale\UpdateRequest;
 use Carbon\Carbon;
 use Auth;
+use Barryvdh\DomPDF\Facade\PDF;
+use Mike42\Escpos\PrintConnectors\FilePrintConnector;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\Printer;
+use Mike42\Escpos\EscposImage;
+
 
 class SaleController extends Controller
 {
@@ -28,8 +34,8 @@ class SaleController extends Controller
     public function store(StoreRequest $request)
     {
         $sale = Sale::create($request->all()+[
-            'user_id'=>Auth::user()->id,
-            'sale_date'=>Carbon::now('America/Caracas'),
+            'user_id' => Auth::user()->id,
+            'sale_date' => Carbon::now('America/Caracas'),
         ]);
         foreach ($request->product_id as $key => $product) {
             $results[] = array("product_id"=>$request->product_id[$key], "quantity"=>$request->quantity[$key], "price"=>$request->price[$key], "discount"=>$request->discount[$key]);
@@ -60,5 +66,44 @@ class SaleController extends Controller
     {
         // $sale->delete();
         // return redirect()->route('sales.index');
+    }
+
+    public function pdf(Sale $sale)
+    {
+        $subtotal = 0;
+        $saleDetails = $sale->saleDetails;
+        foreach ($saleDetails as $saleDetail) {
+            $subtotal += $saleDetail->quantity * $saleDetail->price - $saleDetail->quantity * $saleDetail->price * $saleDetail->discount/100;
+        }
+
+        $pdf = PDF::loadView('admin.sale.pdf', compact('sale', 'saleDetails', 'subtotal'));
+        
+        return $pdf->download('Reporte_de_venta'.$sale->id.'.pdf');
+        
+    }
+
+    public function print(Sale $sale)
+    {
+        try {
+            $subtotal = 0;
+            $saleDetails = $sale->saleDetails;
+            foreach ($saleDetails as $saleDetail) {
+            $subtotal += $saleDetail->quantity * $saleDetail->price - $saleDetail->quantity * $saleDetail->price * $saleDetail->discount/100;
+
+            $printer_name = "TM20";
+            $connector = new WindowsPrintConnector($printer_name);
+            $printer = new Printer($connector);
+
+            $printer->text("€ 9,95\n");
+            $printer->cut();
+            $printer->close();
+
+            return redirect()->back();
+        }
+
+        } catch (\Throwable $th) {
+            return redirect()->back();
+        }
+
     }
 }

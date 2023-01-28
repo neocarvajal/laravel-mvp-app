@@ -21,24 +21,7 @@
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#page-layouts1" aria-expanded="false"
-                aria-controls="page-layouts">
-                <i class="fas fa-chart-line menu-icon"></i>
-                <span class="menu-title">Reportes</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="page-layouts1">
-                <ul class="nav flex-column sub-menu">
-                    {{-- <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="{{route('reports.day')}}">Reportes por día</a>
-                    </li> --}}
-                    {{-- <li class="nav-item">
-                        <a class="nav-link" href="{{route('reports.date')}}">Reportes por fecha</a>
-                    </li> --}}
-                </ul>
-            </div>
-        </li>
+
         <li class="nav-item">
             <a class="nav-link" href="{{route('purchases.index')}}">
                 <i class="fas fa-cart-plus menu-icon"></i>
@@ -77,40 +60,10 @@
             </a>
         </li>
         <li class="nav-item">
-            {{-- <a class="nav-link" href="{{route('users.index')}}">
-                <i class="fas fa-user-tag menu-icon"></i>
-                <span class="menu-title">Usuarios</span>
-            </a> --}}
+
         </li>
         <li class="nav-item">
-            {{-- <a class="nav-link" href="{{route('roles.index')}}">
-                <i class="fas fa-user-cog menu-icon"></i>
-                <span class="menu-title">Roles</span>
-            </a> --}}
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#page-layouts" aria-expanded="false"
-                aria-controls="page-layouts">
-                <i class="fas fa-cogs menu-icon"></i>
-                <span class="menu-title">Configuración</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="page-layouts">
-                <ul class="nav flex-column sub-menu">
-                    {{-- <li class="nav-item d-none d-lg-block">
-                        <a class="nav-link" href="{{route('business.index')}}">Empresa</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('printers.index')}}">Impresora</a>
-                    </li> --}}
-                </ul>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="https://www.youtube.com/channel/UCMWSlUcDJS00-5pmicciZ_w">
-                <i class="fab fa-youtube menu-icon"></i>
-                <span class="menu-title">YouTube</span>
-            </a>
+
         </li>
     </ul>
 </nav>

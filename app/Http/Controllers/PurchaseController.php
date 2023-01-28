@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Purchase\StoreRequest;
 use App\Http\Requests\Purchase\UpdateRequest;
 use App\Models\PurchaseDetails;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Auth;
 use Barryvdh\DomPDF\Facade\PDF;
 
@@ -35,8 +35,8 @@ class PurchaseController extends Controller
     public function store(StoreRequest $request)
     {
         $purchase = Purchase::create($request->all()+[
-            'user_id'=>Auth::user()->id,
-            'purchase_date'=>Carbon::now('America/Caracas'),
+            'user_id' => Auth::user()->id,
+            'purchase_date' => Carbon::now('America/Caracas'),
         ]);
         foreach ($request->product_id as $key => $product) {
             $results[] = array("product_id"=>$request->product_id[$key], "quantity"=>$request->quantity[$key], "price"=>$request->price[$key]);
@@ -61,7 +61,7 @@ class PurchaseController extends Controller
             $subtotal += $purchaseDetail->quantity * $purchaseDetail->price;
         }
         $pdf = PDF::loadView('admin.purchase.pdf', compact('purchase', 'purchaseDetails', 'subtotal'));
-        
+
         return $pdf->download('Reporte_de_compra'.$purchase->id.'.pdf');
     }
     public function update(UpdateRequest $request, Purchase $purchase)
